@@ -5,9 +5,7 @@ import Foundation
 final class NotificationService: NSObject {
     static let shared = NotificationService()
 
-    // Tracks when each PID last transitioned working->idle (for throttle)
     private var lastNotificationTime: [pid_t: Date] = [:]
-    // Tracks when each PID first became working (for debounce)
     private var workingStartTime: [pid_t: Date] = [:]
 
     private override init() {
@@ -16,11 +14,7 @@ final class NotificationService: NSObject {
     }
 
     func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if let error = error {
-                print("Notification permission error: \(error)")
-            }
-        }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 
     func agentStartedWorking(_ agent: AgentInstance) {
@@ -30,19 +24,18 @@ final class NotificationService: NSObject {
     func agentCompletedWork(_ agent: AgentInstance) {
         let now = Date()
 
-        // Debounce: must have been working for at least 5 seconds
         if let startTime = workingStartTime[agent.pid] {
-            let workDuration = now.timeIntervalSince(startTime)
-            guard workDuration >= 5.0 else {
+            let d = now.timeIntervalSince(startTime)
+            guard d >= 5.0 else {
                 workingStartTime.removeValue(forKey: agent.pid)
                 return
             }
         }
         workingStartTime.removeValue(forKey: agent.pid)
 
-        // Throttle: max one notification per agent per 30 seconds
         if let lastTime = lastNotificationTime[agent.pid] {
-            guard now.timeIntervalSince(lastTime) >= 30.0 else { return }
+            let elapsed = now.timeIntervalSince(lastTime)
+            guard elapsed >= 30.0 else { return }
         }
         lastNotificationTime[agent.pid] = now
 
@@ -59,14 +52,10 @@ final class NotificationService: NSObject {
         let request = UNNotificationRequest(
             identifier: "agent-completed-\(agent.pid)-\(Date().timeIntervalSince1970)",
             content: content,
-            trigger: nil // deliver immediately
+            trigger: nil
         )
 
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Failed to send notification: \(error)")
-            }
-        }
+        UNUserNotificationCenter.current().add(request) { _ in }
     }
 }
 

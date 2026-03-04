@@ -1,6 +1,7 @@
 import Foundation
 import Darwin
 
+
 @MainActor
 final class ActivityMonitor {
     var onAgentCompleted: ((AgentInstance) -> Void)?
@@ -43,6 +44,7 @@ final class ActivityMonitor {
                 let previousState = agents[index].activityState
                 let newState: ActivityState = cpuPercent > workingThresholdPercent ? .working : .idle
                 agents[index].activityState = newState
+
 
                 if previousState == .working && newState == .idle {
                     onAgentCompleted?(agents[index])
