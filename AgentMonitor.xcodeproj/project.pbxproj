@@ -11,6 +11,7 @@
 		25543CCE9E0EECDCFB06842E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E3867EDBEAAEA38CF7DACCD /* Assets.xcassets */; };
 		2E30C5BC724DD911FA03734F /* AgentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */; };
 		33BD468694632D163FA45302 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CA3C1E30F71AA419FAA4 /* OnboardingView.swift */; };
+		3B4990AA0D1C491EA261B4A1 /* AgentMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE6D929E009CD83D51326D8 /* AgentMonitorTests.swift */; };
 		417B67C81977FD458080922C /* ActivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E17178CB03740E7B225E8EA /* ActivityMonitor.swift */; };
 		461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */; };
 		4D9AB59BF9E1E07E7F295CF9 /* StatusDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE428A2077C8F56A4ACE9B0 /* StatusDot.swift */; };
@@ -19,6 +20,7 @@
 		6D481BC3DAE2094D646458B4 /* AgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */; };
 		7C93D6C8A3A2E2D28CA771E2 /* ProcessTreeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF32AD48C700BED60F98088 /* ProcessTreeResolver.swift */; };
 		7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D32272A9896E1270BE969D /* MenuBarManager.swift */; };
+		7F3EA0F382C191C5A22AB238 /* AgentInstanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89336031C3FFC93C1EC68931 /* AgentInstanceTests.swift */; };
 		82DA0432F15EF272BE9FEB83 /* AgentMonitorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */; };
 		AA0E9EB4782AC319BC91F17E /* ActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD38ABA8F074A4A578EF26D /* ActivityState.swift */; };
 		B8E4DA3AC63EF60DD53BAD77 /* DurationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D3A9A65EA64AD96908E72 /* DurationLabel.swift */; };
@@ -29,8 +31,19 @@
 		D46FE4CFDA20AD4FB4BBB899 /* FocusTerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */; };
 		D50E05572014A7B08791FD68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573154EA4D7BF63E0DFAEE9E /* ContentView.swift */; };
 		E67C43DFDC55F2519246EDE2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7743729B2E965F0DC76EEBF3 /* EmptyStateView.swift */; };
+		FAEE733CB8F808E4AEA9A267 /* ProcessTreeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D1707DD2C9B5164E200BA /* ProcessTreeResolverTests.swift */; };
 		FDF9972DAEAC1F3B85CFB825 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432074C1661CC4AD2DBF1B89 /* NotificationService.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCEB427CFC39EB0AE6D5057E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D807C909DA4252FBC823431F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A871B5A72195E153D6AF039;
+			remoteInfo = AgentMonitor;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0E3867EDBEAAEA38CF7DACCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +54,7 @@
 		465D2735056FDA70AD4D18EC /* AgentDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentDetector.swift; sourceTree = "<group>"; };
 		4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorApp.swift; sourceTree = "<group>"; };
 		573154EA4D7BF63E0DFAEE9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		591D1707DD2C9B5164E200BA /* ProcessTreeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeResolverTests.swift; sourceTree = "<group>"; };
 		5B68F604ABC205674EB180C2 /* ProcessTreeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeInfo.swift; sourceTree = "<group>"; };
 		5BE428A2077C8F56A4ACE9B0 /* StatusDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusDot.swift; sourceTree = "<group>"; };
 		5DD38ABA8F074A4A578EF26D /* ActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityState.swift; sourceTree = "<group>"; };
@@ -49,13 +63,16 @@
 		7743729B2E965F0DC76EEBF3 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		83640AA31F9C2865AAC49E59 /* AgentInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentInstance.swift; sourceTree = "<group>"; };
 		848C2F067BBC4A08C62305A9 /* OpenCodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCodeDetector.swift; sourceTree = "<group>"; };
+		89336031C3FFC93C1EC68931 /* AgentInstanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentInstanceTests.swift; sourceTree = "<group>"; };
 		A00852C0A2D49D5F9C5BB40C /* AgentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorService.swift; sourceTree = "<group>"; };
 		AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIconState.swift; sourceTree = "<group>"; };
 		ACF32AD48C700BED60F98088 /* ProcessTreeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeResolver.swift; sourceTree = "<group>"; };
 		C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentListView.swift; sourceTree = "<group>"; };
 		CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTerminalService.swift; sourceTree = "<group>"; };
+		DCE6D929E009CD83D51326D8 /* AgentMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorTests.swift; sourceTree = "<group>"; };
 		E5CF63025BB7365A09F18478 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E9987265DADF04AD4CE41D2D /* AgentMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgentMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentType.swift; sourceTree = "<group>"; };
 		F9352C6F0B15B152EFF84EB9 /* AgentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,10 +103,21 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		5412DC2B616E6C8382EFDA98 /* AgentMonitorTests */ = {
+			isa = PBXGroup;
+			children = (
+				89336031C3FFC93C1EC68931 /* AgentInstanceTests.swift */,
+				DCE6D929E009CD83D51326D8 /* AgentMonitorTests.swift */,
+				591D1707DD2C9B5164E200BA /* ProcessTreeResolverTests.swift */,
+			);
+			path = AgentMonitorTests;
+			sourceTree = "<group>";
+		};
 		67F463DE54C89214943D770F /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				A00852C0A2D49D5F9C5BB40C /* AgentMonitor.app */,
+				E9987265DADF04AD4CE41D2D /* AgentMonitorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				D96CD7462EB3A8A2654F5282 /* AgentMonitor */,
+				5412DC2B616E6C8382EFDA98 /* AgentMonitorTests */,
 				67F463DE54C89214943D770F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -207,6 +236,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		00AE8D665E6E0373D125DB43 /* AgentMonitorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E1DE0C3E4DA212A3B34346 /* Build configuration list for PBXNativeTarget "AgentMonitorTests" */;
+			buildPhases = (
+				8A9C5D103551D0B635479008 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3AD61044E515E627858312A /* PBXTargetDependency */,
+			);
+			name = AgentMonitorTests;
+			packageProductDependencies = (
+			);
+			productName = AgentMonitorTests;
+			productReference = E9987265DADF04AD4CE41D2D /* AgentMonitorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9A871B5A72195E153D6AF039 /* AgentMonitor */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5AAF2EC539BD1C4C38ED3E1 /* Build configuration list for PBXNativeTarget "AgentMonitor" */;
@@ -249,6 +296,7 @@
 			projectRoot = "";
 			targets = (
 				9A871B5A72195E153D6AF039 /* AgentMonitor */,
+				00AE8D665E6E0373D125DB43 /* AgentMonitorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -294,9 +342,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8A9C5D103551D0B635479008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F3EA0F382C191C5A22AB238 /* AgentInstanceTests.swift in Sources */,
+				3B4990AA0D1C491EA261B4A1 /* AgentMonitorTests.swift in Sources */,
+				FAEE733CB8F808E4AEA9A267 /* ProcessTreeResolverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C3AD61044E515E627858312A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A871B5A72195E153D6AF039 /* AgentMonitor */;
+			targetProxy = DCEB427CFC39EB0AE6D5057E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		3D290FFE4E9867135CA1C153 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.piotrkulpinski.AgentMonitorTests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AgentMonitor.app/Contents/MacOS/AgentMonitor";
+			};
+			name = Debug;
+		};
 		65ECF19C59DEF206144B7137 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -305,6 +391,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = AgentMonitor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -317,6 +404,26 @@
 			};
 			name = Release;
 		};
+		8D7E54DE34A5477EDE3FE1EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.piotrkulpinski.AgentMonitorTests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AgentMonitor.app/Contents/MacOS/AgentMonitor";
+			};
+			name = Release;
+		};
 		BDA881D9E70C35A67D15A07F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,6 +432,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = AgentMonitor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -473,6 +581,15 @@
 			buildConfigurations = (
 				BDA881D9E70C35A67D15A07F /* Debug */,
 				65ECF19C59DEF206144B7137 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F8E1DE0C3E4DA212A3B34346 /* Build configuration list for PBXNativeTarget "AgentMonitorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D290FFE4E9867135CA1C153 /* Debug */,
+				8D7E54DE34A5477EDE3FE1EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

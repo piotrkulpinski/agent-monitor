@@ -182,3 +182,13 @@ No third-party dependencies. System frameworks:
 - `UserNotifications` — completion notifications
 - `ApplicationServices` — Accessibility API for focus-terminal
 - `ServiceManagement` — launch-at-login (SMAppService)
+
+### XCTest Suite (T14)
+- `AgentMonitorTests/AgentMonitorTests.swift` — equality tests for ActivityState, AgentType, AgentInstance.id, MenuBarIconState
+- `AgentMonitorTests/AgentInstanceTests.swift` — projectName computed property, default activityState/modelName, AgentType.displayName
+- `AgentMonitorTests/ProcessTreeResolverTests.swift` — real PID resolution, PID 0 (kernel), non-existent PID 99999, max-depth timing guard
+- Test target: `AgentMonitorTests` (bundle.unit-test) in project.yml, depends on AgentMonitor target
+- Main target requires `ENABLE_TESTABILITY: YES` for `@testable import AgentMonitor`
+- Test target requires `GENERATE_INFOPLIST_FILE: YES` (no manual Info.plist needed)
+- Run: `xcodebuild test -scheme AgentMonitor -destination 'platform=macOS'`
+- Result: 16 tests, 0 failures
