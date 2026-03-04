@@ -3,10 +3,20 @@ import SwiftUI
 @main
 struct AgentMonitorApp: App {
     @StateObject private var menuBarManager = MenuBarManager()
-    @StateObject private var monitorService = AgentMonitorService(detectors: [
-        ClaudeCodeDetector(), OpenCodeDetector()
-    ])
+    @StateObject private var monitorService: AgentMonitorService
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+
+    init() {
+        // Wire notifications and start monitoring at app launch — before any UI appears.
+        // If wired in onAppear (popover open), working→idle transitions that happen before
+        // the user ever opens the popover are silently dropped.
+        let service = AgentMonitorService(detectors: [ClaudeCodeDetector(), OpenCodeDetector()])
+        service.onAgentCompleted = { agent in
+            NotificationService.shared.agentCompletedWork(agent)
+        }
+        service.startMonitoring()
+        _monitorService = StateObject(wrappedValue: service)
+    }
 
     var body: some Scene {
         MenuBarExtra("AgentMonitor", image: menuBarManager.currentImageName) {
@@ -17,10 +27,6 @@ struct AgentMonitorApp: App {
                     .environmentObject(monitorService)
                     .environmentObject(menuBarManager)
                     .onAppear {
-                        monitorService.startMonitoring()
-                        monitorService.onAgentCompleted = { agent in
-                            NotificationService.shared.agentCompletedWork(agent)
-                        }
                         NotificationService.shared.requestPermission()
                     }
             }
