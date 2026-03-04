@@ -54,6 +54,7 @@ final class NotificationService: NSObject {
         content.title = "\(agent.agentType.displayName) finished"
         content.body = "\(agent.projectName) is now idle"
         content.sound = .default
+        content.userInfo = ["pid": agent.pid]
 
         let request = UNNotificationRequest(
             identifier: "agent-completed-\(agent.pid)-\(Date().timeIntervalSince1970)",
@@ -75,6 +76,13 @@ extension NotificationService: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
+        let userInfo = response.notification.request.content.userInfo
+        if let pidValue = userInfo["pid"] as? Int32 {
+            let pid = pid_t(pidValue)
+            Task { @MainActor in
+                FocusTerminalService.shared.focus(pid: pid)
+            }
+        }
         completionHandler()
     }
 

@@ -8,7 +8,11 @@ final class FocusTerminalService {
     private init() {}
 
     func focus(agent: AgentInstance) {
-        let treeInfo = ProcessTreeResolver().resolve(pid: agent.pid)
+        focus(pid: agent.pid)
+    }
+
+    func focus(pid: pid_t) {
+        let treeInfo = ProcessTreeResolver().resolve(pid: pid)
         guard treeInfo.canFocusTerminal, let terminalPID = treeInfo.terminalPID else {
             return
         }

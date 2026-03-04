@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C844A908D0BE82E000559E7 /* DetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F909DD5AE49A0EE6D2041 /* DetectorTests.swift */; };
 		0E263671EB730954F499D481 /* AgentMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */; };
 		25543CCE9E0EECDCFB06842E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E3867EDBEAAEA38CF7DACCD /* Assets.xcassets */; };
 		2E30C5BC724DD911FA03734F /* AgentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */; };
@@ -70,6 +71,7 @@
 		ACF32AD48C700BED60F98088 /* ProcessTreeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeResolver.swift; sourceTree = "<group>"; };
 		C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentListView.swift; sourceTree = "<group>"; };
 		CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTerminalService.swift; sourceTree = "<group>"; };
+		D13F909DD5AE49A0EE6D2041 /* DetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectorTests.swift; sourceTree = "<group>"; };
 		DCE6D929E009CD83D51326D8 /* AgentMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorTests.swift; sourceTree = "<group>"; };
 		E5CF63025BB7365A09F18478 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E9987265DADF04AD4CE41D2D /* AgentMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgentMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 			children = (
 				89336031C3FFC93C1EC68931 /* AgentInstanceTests.swift */,
 				DCE6D929E009CD83D51326D8 /* AgentMonitorTests.swift */,
+				D13F909DD5AE49A0EE6D2041 /* DetectorTests.swift */,
 				591D1707DD2C9B5164E200BA /* ProcessTreeResolverTests.swift */,
 			);
 			path = AgentMonitorTests;
@@ -348,6 +351,7 @@
 			files = (
 				7F3EA0F382C191C5A22AB238 /* AgentInstanceTests.swift in Sources */,
 				3B4990AA0D1C491EA261B4A1 /* AgentMonitorTests.swift in Sources */,
+				0C844A908D0BE82E000559E7 /* DetectorTests.swift in Sources */,
 				FAEE733CB8F808E4AEA9A267 /* ProcessTreeResolverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
