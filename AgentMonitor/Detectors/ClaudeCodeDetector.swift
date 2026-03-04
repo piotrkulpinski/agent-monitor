@@ -38,11 +38,15 @@ struct ClaudeCodeDetector: AgentDetector {
     }
 
     private func isClaudeProcess(_ pid: pid_t) -> Bool {
-        var name = [CChar](repeating: 0, count: Int(MAXCOMLEN) + 1)
-        let result = proc_name(pid, &name, UInt32(name.count))
+        // Claude Code now ships versioned binaries at:
+        // ~/.local/share/claude/versions/2.x.y
+        // proc_name returns the version string (e.g. "2.1.63"), not "claude"
+        // Use proc_pidpath to check the full executable path instead.
+        var pathBuf = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+        let result = proc_pidpath(pid, &pathBuf, UInt32(pathBuf.count))
         guard result > 0 else { return false }
-
-        return String(cString: name) == "claude"
+        let path = String(cString: pathBuf)
+        return path.contains("/claude/") || path.hasSuffix("/claude")
     }
 
     private func getWorkingDirectory(_ pid: pid_t) -> String? {
