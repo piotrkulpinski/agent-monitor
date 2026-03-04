@@ -54,6 +54,30 @@ make build && make dmg
 - `NotificationService` — T10
 - Onboarding flow — T11
 
+### Process Tree Resolver (T7)
+- `AgentMonitor/Core/ProcessTreeResolver.swift` — walks PPID chain from agent PID to terminal app
+- `AgentMonitor/Models/ProcessTreeInfo.swift` — result: terminalPID?, terminalAppName?, canFocusTerminal
+- Terminal apps detected: Ghostty, Terminal, iTerm2, kitty, Warp, WezTerm, Alacritty, rio
+- Max depth: 10 levels (prevents infinite loops)
+- Daemon detection: PPID=0 or PPID=1 → canFocusTerminal=false
+- Uses proc_pidinfo(PROC_PIDTBSDINFO) → proc_bsdinfo.pbi_ppid for parent PID
+
+### Open Code Detector (T5)
+- `AgentMonitor/Detectors/OpenCodeDetector.swift` — finds processes named ".opencode" via proc_listallpids + proc_name
+- CWD: same proc_pidinfo(PROC_PIDVNODEPATHINFO) approach as ClaudeCodeDetector
+- SQLite: opens `~/.local/share/opencode/opencode.db` with SQLITE_OPEN_READONLY, PRAGMA query_only=ON
+- Model name: queried from `session` + `message` tables, matched by working directory
+- Graceful fallback: if DB missing or query fails, returns instances without modelName
+- Short-lived connections: open -> query -> close each poll cycle (no persistent connection)
+- Actual schema: `session.directory`, `message.session_id`, model in `json_extract(message.data, '$.modelID')`
+
+### Claude Code Detector (T4)
+- `AgentMonitor/Detectors/ClaudeCodeDetector.swift` — finds processes named "claude" via proc_listallpids + proc_name
+- CWD: proc_pidinfo(PROC_PIDVNODEPATHINFO) → proc_vnodepathinfo.pvi_cdir.vip_path
+- Start time: proc_pidinfo(PROC_PIDTBSDINFO) → proc_bsdinfo.pbi_start_tvsec + pbi_start_tvusec
+- Handles stale PIDs gracefully (proc_pidinfo returns <= 0 for dead processes)
+- Does NOT detect activity state (that's ActivityMonitor T6)
+
 ## Build & Run
 
 ```bash
