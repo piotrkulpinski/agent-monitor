@@ -65,6 +65,14 @@ final class AgentMonitorService: ObservableObject {
             }
         }
 
-        agents = allAgents
+        // Deduplicate: if multiple processes share the same (agentType, workingDirectory),
+        // keep only the one with the highest PID (most recently started).
+        let deduped = Dictionary(
+            grouping: allAgents,
+            by: { "\($0.agentType)-\($0.workingDirectory)" }
+        ).values.map { group in
+            group.max(by: { $0.pid < $1.pid })!
+        }
+        agents = deduped.sorted { $0.pid < $1.pid }
     }
 }
