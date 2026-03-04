@@ -5,11 +5,17 @@ import Combine
 final class AgentMonitorService: ObservableObject {
     @Published var agents: [AgentInstance] = []
 
+    var onAgentCompleted: ((AgentInstance) -> Void)?
+
     private let detectors: [any AgentDetector]
+    private let activityMonitor = ActivityMonitor()
     private var monitoringTask: Task<Void, Never>?
 
     init(detectors: [any AgentDetector] = []) {
         self.detectors = detectors
+        activityMonitor.onAgentCompleted = { [weak self] agent in
+            self?.onAgentCompleted?(agent)
+        }
     }
 
     func startMonitoring() {
@@ -32,6 +38,7 @@ final class AgentMonitorService: ObservableObject {
             let detected = await detector.detect()
             allAgents.append(contentsOf: detected)
         }
+        activityMonitor.updateActivityStates(for: &allAgents)
         agents = allAgents
     }
 }

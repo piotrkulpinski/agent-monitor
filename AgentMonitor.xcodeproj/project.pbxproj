@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E263671EB730954F499D481 /* AgentMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */; };
+		417B67C81977FD458080922C /* ActivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E17178CB03740E7B225E8EA /* ActivityMonitor.swift */; };
 		461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */; };
 		50DB550421AB0FE3EBBA35B9 /* OpenCodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C2F067BBC4A08C62305A9 /* OpenCodeDetector.swift */; };
 		54DB2A1A37C60A3D9237B5F2 /* AgentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83640AA31F9C2865AAC49E59 /* AgentInstance.swift */; };
@@ -29,6 +30,7 @@
 		573154EA4D7BF63E0DFAEE9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5B68F604ABC205674EB180C2 /* ProcessTreeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeInfo.swift; sourceTree = "<group>"; };
 		5DD38ABA8F074A4A578EF26D /* ActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityState.swift; sourceTree = "<group>"; };
+		5E17178CB03740E7B225E8EA /* ActivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMonitor.swift; sourceTree = "<group>"; };
 		6A5D38B67544ABCC194F68A3 /* ClaudeCodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeCodeDetector.swift; sourceTree = "<group>"; };
 		83640AA31F9C2865AAC49E59 /* AgentInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentInstance.swift; sourceTree = "<group>"; };
 		848C2F067BBC4A08C62305A9 /* OpenCodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCodeDetector.swift; sourceTree = "<group>"; };
@@ -73,6 +75,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		C0611C4B3479069EC3E386CF /* Monitoring */ = {
+			isa = PBXGroup;
+			children = (
+				5E17178CB03740E7B225E8EA /* ActivityMonitor.swift */,
+			);
+			path = Monitoring;
+			sourceTree = "<group>";
+		};
 		D1971746D69732C83AC168F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 				B04108173CE5918C786BDE47 /* Core */,
 				DE419477445676E17B0AFACF /* Detectors */,
 				D1971746D69732C83AC168F0 /* Models */,
+				C0611C4B3479069EC3E386CF /* Monitoring */,
 				7CF82C221CE60979A5A15282 /* Protocols */,
 				DF503FDC0AE8C3C942C919A7 /* Services */,
 				065E85A0E8B7BE8A3D515B2C /* UI */,
@@ -179,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				417B67C81977FD458080922C /* ActivityMonitor.swift in Sources */,
 				AA0E9EB4782AC319BC91F17E /* ActivityState.swift in Sources */,
 				D090E3DB31FA39782990B54F /* AgentDetector.swift in Sources */,
 				54DB2A1A37C60A3D9237B5F2 /* AgentInstance.swift in Sources */,

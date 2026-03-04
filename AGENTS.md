@@ -78,6 +78,15 @@ make build && make dmg
 - Handles stale PIDs gracefully (proc_pidinfo returns <= 0 for dead processes)
 - Does NOT detect activity state (that's ActivityMonitor T6)
 
+### Activity Monitor (T6)
+- `AgentMonitor/Monitoring/ActivityMonitor.swift` — CPU delta heuristic for working/idle detection
+- Algorithm: proc_pidinfo(PROC_PIDTASKINFO) -> pti_total_user + pti_total_system (nanoseconds)
+- Delta: (cpuNanos / wallNanos) * 100 > 0.5% -> .working, else .idle
+- First sample for new PID -> .unknown (need two samples for delta)
+- Stale PIDs cleaned up each cycle (filter previousSamples to active PIDs only)
+- onAgentCompleted callback fires on .working -> .idle transition
+- AgentMonitorService updated: calls activityMonitor.updateActivityStates(for: &allAgents) after detection
+
 ## Build & Run
 
 ```bash
