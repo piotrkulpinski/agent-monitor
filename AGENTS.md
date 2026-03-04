@@ -192,3 +192,13 @@ No third-party dependencies. System frameworks:
 - Test target requires `GENERATE_INFOPLIST_FILE: YES` (no manual Info.plist needed)
 - Run: `xcodebuild test -scheme AgentMonitor -destination 'platform=macOS'`
 - Result: 16 tests, 0 failures
+
+### Build + DMG (T13)
+- `Makefile` in project root — no Apple Developer Program required
+- `make build` — Release build to `build/Release/AgentMonitor.app` via xcodebuild
+- `make run` — Build + open the .app
+- `make dmg` — Creates `AgentMonitor.dmg` in project root (compressed UDZO format)
+- `make clean` — Removes `build/` directory and `AgentMonitor.dmg`
+- `make release` — Prints instructions for future notarized distribution (deferred)
+- Ad-hoc signing (`CODE_SIGN_IDENTITY = "-"`) — users bypass Gatekeeper via right-click → Open
+- DMG staging: copies .app + symlinks `/Applications` for drag-install UX
