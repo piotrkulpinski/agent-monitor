@@ -24,6 +24,7 @@
 		CED50782AE04844DAB0D9BFC /* ProcessTreeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68F604ABC205674EB180C2 /* ProcessTreeInfo.swift */; };
 		D064F6DF3563FA026375E3C0 /* ClaudeCodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5D38B67544ABCC194F68A3 /* ClaudeCodeDetector.swift */; };
 		D090E3DB31FA39782990B54F /* AgentDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D2735056FDA70AD4D18EC /* AgentDetector.swift */; };
+		D46FE4CFDA20AD4FB4BBB899 /* FocusTerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */; };
 		D50E05572014A7B08791FD68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573154EA4D7BF63E0DFAEE9E /* ContentView.swift */; };
 		E67C43DFDC55F2519246EDE2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7743729B2E965F0DC76EEBF3 /* EmptyStateView.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIconState.swift; sourceTree = "<group>"; };
 		ACF32AD48C700BED60F98088 /* ProcessTreeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTreeResolver.swift; sourceTree = "<group>"; };
 		C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentListView.swift; sourceTree = "<group>"; };
+		CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTerminalService.swift; sourceTree = "<group>"; };
 		E5CF63025BB7365A09F18478 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentType.swift; sourceTree = "<group>"; };
 		F9352C6F0B15B152EFF84EB9 /* AgentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentRowView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				C0611C4B3479069EC3E386CF /* Monitoring */,
 				7CF82C221CE60979A5A15282 /* Protocols */,
 				DF503FDC0AE8C3C942C919A7 /* Services */,
+				F82A5C5ABAB51B6B195FCEE1 /* Terminal */,
 				065E85A0E8B7BE8A3D515B2C /* UI */,
 				6E85A0B0CE627F27F770D417 /* Views */,
 			);
@@ -166,6 +169,14 @@
 				A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		F82A5C5ABAB51B6B195FCEE1 /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */,
+			);
+			path = Terminal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +245,7 @@
 				D50E05572014A7B08791FD68 /* ContentView.swift in Sources */,
 				B8E4DA3AC63EF60DD53BAD77 /* DurationLabel.swift in Sources */,
 				E67C43DFDC55F2519246EDE2 /* EmptyStateView.swift in Sources */,
+				D46FE4CFDA20AD4FB4BBB899 /* FocusTerminalService.swift in Sources */,
 				461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */,
 				7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */,
 				50DB550421AB0FE3EBBA35B9 /* OpenCodeDetector.swift in Sources */,

@@ -41,7 +41,7 @@ struct AgentRowView: View {
         .contentShape(Rectangle())
         .onHover { isHovered = $0 }
         .onTapGesture {
-            // T9 will wire up focus-terminal here
+            FocusTerminalService.shared.focus(agent: agent)
         }
     }
 }

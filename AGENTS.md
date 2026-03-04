@@ -98,6 +98,12 @@ make build && make dmg
 - AgentMonitorApp wires real detectors (ClaudeCodeDetector + OpenCodeDetector) and .onChange(of:) for MenuBarManager updates
 - Added Equatable conformance to ActivityState and AgentInstance (required for onChange two-parameter form)
 
+### Focus Terminal Service (T9)
+- `FocusTerminalService.shared.focus(agent:)` — resolves process tree and activates the terminal app for the agent PID
+- Accessibility check: `AXIsProcessTrusted()` before any `AXUIElement` calls
+- Fallback focus path: `NSRunningApplication.activate(options: .activateIgnoringOtherApps)`
+- Imports: `ApplicationServices` for AX APIs and `AppKit` for `NSRunningApplication`
+
 ## Build & Run
 
 ```bash
