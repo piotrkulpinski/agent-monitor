@@ -21,7 +21,8 @@ struct ClaudeCodeDetector: AgentDetector {
                     workingDirectory: cwd,
                     modelName: sessionData?.modelName,
                     sessionTitle: sessionData?.sessionTitle,
-                    sessionStartTime: startTime
+                    sessionStartTime: startTime,
+                    lastActiveTime: sessionData?.lastActiveTime ?? Date()
                 )
             )
         }
@@ -84,6 +85,7 @@ struct ClaudeCodeDetector: AgentDetector {
     private struct SessionData {
         let modelName: String?
         let sessionTitle: String?
+        let lastActiveTime: Date
     }
 
     /// Scans ~/.claude/projects/{cwd-as-dir}/*.jsonl files to find the most recent session
@@ -166,6 +168,9 @@ struct ClaudeCodeDetector: AgentDetector {
             // Skip stubs with no assistant messages.
             guard hasAssistantMessages else { continue }
 
+            let fileAttrs = try? fm.attributesOfItem(atPath: path)
+            let lastActiveTime = (fileAttrs?[.modificationDate] as? Date) ?? Date()
+
             // Try session-meta for an AI-generated summary (better than first prompt).
             let sessionUUID = String(jsonlName.dropLast(6)) // strip .jsonl
             let metaPath = sessionMetaDir + "/" + sessionUUID + ".json"
@@ -177,7 +182,7 @@ struct ClaudeCodeDetector: AgentDetector {
                 sessionTitle = summary
             }
 
-            return SessionData(modelName: modelName, sessionTitle: sessionTitle)
+            return SessionData(modelName: modelName, sessionTitle: sessionTitle, lastActiveTime: lastActiveTime)
         }
 
         return nil

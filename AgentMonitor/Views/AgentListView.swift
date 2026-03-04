@@ -7,9 +7,11 @@ struct AgentListView: View {
 
     var claudeAgents: [AgentInstance] {
         monitorService.agents.filter { $0.agentType == .claudeCode }
+            .sorted { $0.lastActiveTime > $1.lastActiveTime }
     }
     var openCodeAgents: [AgentInstance] {
         monitorService.agents.filter { $0.agentType == .openCode }
+            .sorted { $0.lastActiveTime > $1.lastActiveTime }
     }
 
     var body: some View {

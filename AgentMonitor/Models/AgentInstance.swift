@@ -1,7 +1,7 @@
 import Foundation
 
 struct AgentInstance: Identifiable, Equatable {
-    let id: UUID
+    var id: pid_t { pid }
     let agentType: AgentType
     let pid: pid_t
     let workingDirectory: String
@@ -9,6 +9,7 @@ struct AgentInstance: Identifiable, Equatable {
     var sessionTitle: String?
     var contextWindowUsage: Double?
     let sessionStartTime: Date
+    var lastActiveTime: Date
     var activityState: ActivityState
 
     var displayTitle: String {
@@ -28,7 +29,6 @@ struct AgentInstance: Identifiable, Equatable {
     }
 
     init(
-        id: UUID = UUID(),
         agentType: AgentType,
         pid: pid_t,
         workingDirectory: String,
@@ -36,9 +36,9 @@ struct AgentInstance: Identifiable, Equatable {
         sessionTitle: String? = nil,
         contextWindowUsage: Double? = nil,
         sessionStartTime: Date = Date(),
+        lastActiveTime: Date = Date(),
         activityState: ActivityState = .unknown
     ) {
-        self.id = id
         self.agentType = agentType
         self.pid = pid
         self.workingDirectory = workingDirectory
@@ -46,6 +46,7 @@ struct AgentInstance: Identifiable, Equatable {
         self.sessionTitle = sessionTitle
         self.contextWindowUsage = contextWindowUsage
         self.sessionStartTime = sessionStartTime
+        self.lastActiveTime = lastActiveTime
         self.activityState = activityState
     }
 }

@@ -27,7 +27,8 @@ struct OpenCodeDetector: AgentDetector {
                     workingDirectory: cwd,
                     modelName: data?.modelName,
                     sessionTitle: data?.sessionTitle,
-                    sessionStartTime: startTime
+                    sessionStartTime: startTime,
+                    lastActiveTime: data?.lastActiveTime ?? Date()
                 )
             )
         }
@@ -95,6 +96,7 @@ struct OpenCodeDetector: AgentDetector {
     private struct SessionData {
         let modelName: String?
         let sessionTitle: String?
+        let lastActiveTime: Date
     }
 
     private func loadSessionData() -> [String: SessionData] {
@@ -113,7 +115,7 @@ struct OpenCodeDetector: AgentDetector {
         // model comes from the latest assistant message in that session.
         let sql = """
             WITH latest_session AS (
-                SELECT directory, title,
+                SELECT directory, title, time_updated,
                     ROW_NUMBER() OVER (PARTITION BY directory ORDER BY time_updated DESC) AS rank
                 FROM session
                 WHERE time_archived IS NULL
@@ -133,8 +135,9 @@ struct OpenCodeDetector: AgentDetector {
             SELECT
                 COALESCE(ls.directory, mr.directory) AS directory,
                 ls.title,
-                mr.model_name
-            FROM (SELECT directory, title FROM latest_session WHERE rank = 1) ls
+                mr.model_name,
+                ls.time_updated
+            FROM (SELECT directory, title, time_updated FROM latest_session WHERE rank = 1) ls
             LEFT JOIN (SELECT directory, model_name FROM model_rows WHERE rank = 1) mr
                 ON ls.directory = mr.directory
         """
@@ -154,9 +157,13 @@ struct OpenCodeDetector: AgentDetector {
             let title = sqlite3_column_text(stmt, 1).map { String(cString: $0) }
             let modelName = sqlite3_column_text(stmt, 2).map { String(cString: $0) }
 
+            let timeUpdatedMs = sqlite3_column_int64(stmt, 3)
+            let lastActiveTime = timeUpdatedMs > 0 ? Date(timeIntervalSince1970: TimeInterval(timeUpdatedMs) / 1000) : Date()
+
             let data = SessionData(
                 modelName: modelName?.isEmpty == false ? modelName : nil,
-                sessionTitle: title?.isEmpty == false ? title : nil
+                sessionTitle: title?.isEmpty == false ? title : nil,
+                lastActiveTime: lastActiveTime
             )
             rows[directory] = data
             rows[NSString(string: directory).standardizingPath] = data
