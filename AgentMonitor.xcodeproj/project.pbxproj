@@ -8,17 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		0E263671EB730954F499D481 /* AgentMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */; };
+		461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */; };
+		54DB2A1A37C60A3D9237B5F2 /* AgentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83640AA31F9C2865AAC49E59 /* AgentInstance.swift */; };
+		6D481BC3DAE2094D646458B4 /* AgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */; };
+		7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D32272A9896E1270BE969D /* MenuBarManager.swift */; };
+		82DA0432F15EF272BE9FEB83 /* AgentMonitorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */; };
+		AA0E9EB4782AC319BC91F17E /* ActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD38ABA8F074A4A578EF26D /* ActivityState.swift */; };
+		D090E3DB31FA39782990B54F /* AgentDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D2735056FDA70AD4D18EC /* AgentDetector.swift */; };
 		D50E05572014A7B08791FD68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573154EA4D7BF63E0DFAEE9E /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15D32272A9896E1270BE969D /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+		465D2735056FDA70AD4D18EC /* AgentDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentDetector.swift; sourceTree = "<group>"; };
 		4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorApp.swift; sourceTree = "<group>"; };
 		573154EA4D7BF63E0DFAEE9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5DD38ABA8F074A4A578EF26D /* ActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityState.swift; sourceTree = "<group>"; };
+		83640AA31F9C2865AAC49E59 /* AgentInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentInstance.swift; sourceTree = "<group>"; };
 		A00852C0A2D49D5F9C5BB40C /* AgentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorService.swift; sourceTree = "<group>"; };
+		AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIconState.swift; sourceTree = "<group>"; };
 		E5CF63025BB7365A09F18478 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		065E85A0E8B7BE8A3D515B2C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				15D32272A9896E1270BE969D /* MenuBarManager.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		67F463DE54C89214943D770F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -27,12 +49,35 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7CF82C221CE60979A5A15282 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				465D2735056FDA70AD4D18EC /* AgentDetector.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D1971746D69732C83AC168F0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5DD38ABA8F074A4A578EF26D /* ActivityState.swift */,
+				83640AA31F9C2865AAC49E59 /* AgentInstance.swift */,
+				ECB31BB65387D9F8D7DFBCA5 /* AgentType.swift */,
+				AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D96CD7462EB3A8A2654F5282 /* AgentMonitor */ = {
 			isa = PBXGroup;
 			children = (
 				4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */,
 				573154EA4D7BF63E0DFAEE9E /* ContentView.swift */,
 				E5CF63025BB7365A09F18478 /* Info.plist */,
+				D1971746D69732C83AC168F0 /* Models */,
+				7CF82C221CE60979A5A15282 /* Protocols */,
+				DF503FDC0AE8C3C942C919A7 /* Services */,
+				065E85A0E8B7BE8A3D515B2C /* UI */,
 			);
 			path = AgentMonitor;
 			sourceTree = "<group>";
@@ -43,6 +88,14 @@
 				D96CD7462EB3A8A2654F5282 /* AgentMonitor */,
 				67F463DE54C89214943D770F /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		DF503FDC0AE8C3C942C919A7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A8A33A20DFD2AFEF04E31D8F /* AgentMonitorService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,8 +151,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA0E9EB4782AC319BC91F17E /* ActivityState.swift in Sources */,
+				D090E3DB31FA39782990B54F /* AgentDetector.swift in Sources */,
+				54DB2A1A37C60A3D9237B5F2 /* AgentInstance.swift in Sources */,
 				0E263671EB730954F499D481 /* AgentMonitorApp.swift in Sources */,
+				82DA0432F15EF272BE9FEB83 /* AgentMonitorService.swift in Sources */,
+				6D481BC3DAE2094D646458B4 /* AgentType.swift in Sources */,
 				D50E05572014A7B08791FD68 /* ContentView.swift in Sources */,
+				461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */,
+				7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

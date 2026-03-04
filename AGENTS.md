@@ -29,6 +29,17 @@ make build && make dmg
 (Filled as tasks complete)
 
 - `AgentDetector` protocol — T2
+- `AgentType` enum — T2
+- `ActivityState` enum — T2
+- `AgentInstance` struct — T2
+- `AgentMonitorService` class — T2
+
+### Core Models (T2)
+- `AgentMonitor/Models/AgentInstance.swift` — main data model: pid, workingDirectory, projectName (computed), modelName?, contextWindowUsage?, sessionStartTime, activityState
+- `AgentMonitor/Models/AgentType.swift` — enum: .claudeCode, .openCode
+- `AgentMonitor/Models/ActivityState.swift` — enum: .working, .idle, .unknown
+- `AgentMonitor/Protocols/AgentDetector.swift` — protocol: agentType + detect() async -> [AgentInstance]
+- `AgentMonitor/Services/AgentMonitorService.swift` — ObservableObject, @Published agents, startMonitoring/stopMonitoring, 3s polling loop
 - `ClaudeCodeDetector` — T4
 - `OpenCodeDetector` — T5
 - `ActivityMonitor` — T6
