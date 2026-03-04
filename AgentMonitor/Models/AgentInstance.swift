@@ -1,6 +1,6 @@
 import Foundation
 
-struct AgentInstance: Identifiable {
+struct AgentInstance: Identifiable, Equatable {
     let id: UUID
     let agentType: AgentType
     let pid: pid_t

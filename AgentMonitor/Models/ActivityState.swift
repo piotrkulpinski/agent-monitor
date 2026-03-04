@@ -1,6 +1,6 @@
 import Foundation
 
-enum ActivityState {
+enum ActivityState: Equatable {
     case working
     case idle
     case unknown

@@ -87,6 +87,17 @@ make build && make dmg
 - onAgentCompleted callback fires on .working -> .idle transition
 - AgentMonitorService updated: calls activityMonitor.updateActivityStates(for: &allAgents) after detection
 
+### Agent List UI (T8)
+- `AgentMonitor/Views/AgentListView.swift` — main popover content: header with agent count, grouped sections (Claude Code / Open Code), empty state fallback
+- `AgentMonitor/Views/AgentRowView.swift` — individual agent row: status dot + project name + path + model + duration, .onHover for macOS hover highlight
+- `AgentMonitor/Views/EmptyStateView.swift` — "No AI agents detected" placeholder with SF Symbol (cpu) and guidance text
+- `AgentMonitor/Views/Components/StatusDot.swift` — 8pt colored circle: green=working, secondary=idle, yellow=unknown
+- `AgentMonitor/Views/Components/DurationLabel.swift` — human-readable elapsed time: "2h 15m", "45m", "<1m"
+- Popover dimensions: 320pt wide, 400pt max scroll height via ScrollView + .frame(maxHeight: 400)
+- LazyVStack with pinnedViews: .sectionHeaders for sticky section headers with .regularMaterial background
+- AgentMonitorApp wires real detectors (ClaudeCodeDetector + OpenCodeDetector) and .onChange(of:) for MenuBarManager updates
+- Added Equatable conformance to ActivityState and AgentInstance (required for onChange two-parameter form)
+
 ## Build & Run
 
 ```bash
