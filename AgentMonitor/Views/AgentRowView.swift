@@ -11,14 +11,14 @@ struct AgentRowView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
-                    Text(agent.projectName)
+                    Text(agent.displayTitle)
                         .font(.system(size: 13, weight: .medium))
                         .lineLimit(1)
                     Spacer()
                     DurationLabel(startTime: agent.sessionStartTime)
                 }
 
-                Text(agent.workingDirectory)
+                Text(agent.shortWorkingDirectory)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)

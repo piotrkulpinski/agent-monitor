@@ -12,12 +12,14 @@ struct ClaudeCodeDetector: AgentDetector {
             guard isClaudeProcess(pid) else { continue }
             guard let cwd = getWorkingDirectory(pid) else { continue }
             let startTime = getProcessStartTime(pid) ?? Date()
+            let sessionTitle = getSessionTitle(for: cwd)
 
             instances.append(
                 AgentInstance(
                     agentType: .claudeCode,
                     pid: pid,
                     workingDirectory: cwd,
+                    sessionTitle: sessionTitle,
                     sessionStartTime: startTime
                 )
             )
@@ -74,3 +76,45 @@ struct ClaudeCodeDetector: AgentDetector {
         return Date(timeIntervalSince1970: seconds + microseconds)
     }
 }
+
+    /// Reads the session title from ~/.claude/usage-data/session-meta/ for the most recent
+    /// session in the given working directory. Returns nil if not found or no summary available.
+    private func getSessionTitle(for cwd: String) -> String? {
+        // Claude Code stores projects as dirs named by replacing '/' with '-' in the path.
+        // e.g. /Users/foo/Sites/bar -> -Users-foo-Sites-bar
+        let projectDirName = cwd.replacingOccurrences(of: "/", with: "-")
+        let projectDir = NSHomeDirectory() + "/.claude/projects/" + projectDirName
+        let sessionMetaDir = NSHomeDirectory() + "/.claude/usage-data/session-meta"
+
+        guard FileManager.default.fileExists(atPath: projectDir) else { return nil }
+
+        // Find the most recently modified JSONL in the project dir (= most recent session).
+        let fm = FileManager.default
+        guard let files = try? fm.contentsOfDirectory(atPath: projectDir) else { return nil }
+        let jsonlFiles = files.filter { $0.hasSuffix(".jsonl") && !$0.contains("/") }
+        guard !jsonlFiles.isEmpty else { return nil }
+
+        // Pick the most recently modified JSONL.
+        let mostRecent = jsonlFiles
+            .compactMap { name -> (String, Date)? in
+                let path = projectDir + "/" + name
+                guard let attrs = try? fm.attributesOfItem(atPath: path),
+                      let mod = attrs[.modificationDate] as? Date else { return nil }
+                return (name, mod)
+            }
+            .max(by: { $0.1 < $1.1 })
+            .map { $0.0 }
+
+        guard let jsonlName = mostRecent else { return nil }
+        let sessionUUID = String(jsonlName.dropLast(6)) // strip .jsonl
+
+        // Try session-meta first (has AI-generated summary).
+        let metaPath = sessionMetaDir + "/" + sessionUUID + ".json"
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: metaPath)),
+           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let summary = json["summary"] as? String, !summary.isEmpty {
+            return summary
+        }
+
+        return nil
+    }

@@ -18,18 +18,15 @@ struct OpenCodeDetector: AgentDetector {
 
             let startTime = getProcessStartTime(pid) ?? Date()
             let normalizedCWD = NSString(string: cwd).standardizingPath
-            let modelName = sessionData[normalizedCWD] ?? sessionData[cwd]
-
-            if getParentPID(pid) == 1 {
-                // PPID=1 identifies daemon OpenCode processes; ProcessTreeResolver will use this.
-            }
+            let data = sessionData[normalizedCWD] ?? sessionData[cwd]
 
             instances.append(
                 AgentInstance(
                     agentType: .openCode,
                     pid: pid,
                     workingDirectory: cwd,
-                    modelName: modelName,
+                    modelName: data?.modelName,
+                    sessionTitle: data?.sessionTitle,
                     sessionStartTime: startTime
                 )
             )
@@ -95,7 +92,12 @@ struct OpenCodeDetector: AgentDetector {
         return pid_t(bsdInfo.pbi_ppid)
     }
 
-    private func loadSessionData() -> [String: String] {
+    private struct SessionData {
+        let modelName: String?
+        let sessionTitle: String?
+    }
+
+    private func loadSessionData() -> [String: SessionData] {
         guard FileManager.default.fileExists(atPath: dbPath) else { return [:] }
 
         var db: OpaquePointer?
@@ -106,13 +108,20 @@ struct OpenCodeDetector: AgentDetector {
 
         sqlite3_exec(db, "PRAGMA query_only = ON", nil, nil, nil)
 
+        // Get the most recent session per directory (title) and most recent model per directory.
+        // Two separate queries joined: session title comes from the latest session row,
+        // model comes from the latest assistant message in that session.
         let sql = """
-            WITH model_rows AS (
+            WITH latest_session AS (
+                SELECT directory, title,
+                    ROW_NUMBER() OVER (PARTITION BY directory ORDER BY time_updated DESC) AS rank
+                FROM session
+                WHERE time_archived IS NULL
+            ),
+            model_rows AS (
                 SELECT
                     s.directory,
                     json_extract(m.data, '$.modelID') AS model_name,
-                    m.time_created,
-                    m.rowid,
                     ROW_NUMBER() OVER (
                         PARTITION BY s.directory
                         ORDER BY m.time_created DESC, m.rowid DESC
@@ -121,9 +130,13 @@ struct OpenCodeDetector: AgentDetector {
                 JOIN message m ON m.session_id = s.id
                 WHERE json_extract(m.data, '$.modelID') IS NOT NULL
             )
-            SELECT directory, model_name
-            FROM model_rows
-            WHERE rank = 1
+            SELECT
+                COALESCE(ls.directory, mr.directory) AS directory,
+                ls.title,
+                mr.model_name
+            FROM (SELECT directory, title FROM latest_session WHERE rank = 1) ls
+            LEFT JOIN (SELECT directory, model_name FROM model_rows WHERE rank = 1) mr
+                ON ls.directory = mr.directory
         """
 
         var stmt: OpaquePointer?
@@ -132,19 +145,21 @@ struct OpenCodeDetector: AgentDetector {
         }
         defer { sqlite3_finalize(stmt) }
 
-        var rows: [String: String] = [:]
+        var rows: [String: SessionData] = [:]
         while sqlite3_step(stmt) == SQLITE_ROW {
-            guard
-                let dirPtr = sqlite3_column_text(stmt, 0),
-                let modelPtr = sqlite3_column_text(stmt, 1)
-            else { continue }
-
+            guard let dirPtr = sqlite3_column_text(stmt, 0) else { continue }
             let directory = String(cString: dirPtr)
-            let modelName = String(cString: modelPtr)
-            guard !directory.isEmpty, !modelName.isEmpty else { continue }
+            guard !directory.isEmpty else { continue }
 
-            rows[directory] = modelName
-            rows[NSString(string: directory).standardizingPath] = modelName
+            let title = sqlite3_column_text(stmt, 1).map { String(cString: $0) }
+            let modelName = sqlite3_column_text(stmt, 2).map { String(cString: $0) }
+
+            let data = SessionData(
+                modelName: modelName?.isEmpty == false ? modelName : nil,
+                sessionTitle: title?.isEmpty == false ? title : nil
+            )
+            rows[directory] = data
+            rows[NSString(string: directory).standardizingPath] = data
         }
 
         return rows
