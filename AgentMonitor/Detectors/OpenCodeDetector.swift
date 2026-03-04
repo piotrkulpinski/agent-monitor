@@ -50,7 +50,7 @@ struct OpenCodeDetector: AgentDetector {
     }
 
     private func isOpenCodeProcess(_ pid: pid_t) -> Bool {
-        var name = [CChar](repeating: 0, count: Int(MAXCOMLEN) + 1)
+        var name = [CChar](repeating: 0, count: 256)
         let nameResult = proc_name(pid, &name, UInt32(name.count))
         guard nameResult > 0, String(cString: name) == ".opencode" else { return false }
 
