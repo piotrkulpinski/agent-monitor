@@ -13,8 +13,9 @@ DMG_STAGING = $(BUILD_DIR)/dmg-staging
 
 .PHONY: build run dmg clean release
 
-## Build the Release .app (ad-hoc signed, no Developer Program needed)
+## Build the Release .app (always clean — no stale cache)
 build:
+	@rm -rf $(BUILD_DIR)/DerivedData
 	xcodebuild -scheme $(SCHEME) \
 		-project $(PROJECT) \
 		-configuration Release \
@@ -22,8 +23,10 @@ build:
 		CONFIGURATION_BUILD_DIR=$(RELEASE_DIR) \
 		build
 
-## Build and launch the app
+## Build and launch the app (kills any running instance first)
 run: build
+	@pkill AgentMonitor 2>/dev/null || true
+	@sleep 0.5
 	open $(APP_PATH)
 
 ## Create a DMG for distribution (unsigned — users bypass Gatekeeper via right-click → Open)
