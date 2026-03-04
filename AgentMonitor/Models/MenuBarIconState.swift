@@ -5,16 +5,19 @@ enum MenuBarIconState: Equatable {
     case idle       // Agents present, all idle
     case active     // At least one agent working
 
-    var systemImageName: String {
+    var imageName: String {
         switch self {
-        case .inactive: return "circle.dashed"
-        case .idle:     return "circle.fill"
-        case .active:   return "circle.fill"
+        case .inactive: return "MenuBarInactive"
+        case .idle:     return "MenuBarIdle"
+        case .active:   return "MenuBarActive"
         }
     }
 
     // Alternate image for active animation (toggled every 0.5s)
-    var alternateSystemImageName: String {
-        return "circle.dotted"
+    var alternateImageName: String {
+        switch self {
+        case .active: return "MenuBarIdle"  // animation: toggle between active and idle
+        default: return imageName
+        }
     }
 }

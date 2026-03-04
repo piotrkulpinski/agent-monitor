@@ -4,7 +4,7 @@ import AppKit
 @MainActor
 final class MenuBarManager: ObservableObject {
     @Published var iconState: MenuBarIconState = .inactive
-    @Published var currentImageName: String = MenuBarIconState.inactive.systemImageName
+    @Published var currentImageName: String = MenuBarIconState.inactive.imageName
 
     private var animationTimer: Timer?
     private var isAnimationToggled = false
@@ -36,12 +36,12 @@ final class MenuBarManager: ObservableObject {
                     guard let self else { return }
                     self.isAnimationToggled.toggle()
                     self.currentImageName = self.isAnimationToggled
-                        ? self.iconState.alternateSystemImageName
-                        : self.iconState.systemImageName
+                        ? self.iconState.alternateImageName
+                        : self.iconState.imageName
                 }
             }
         } else {
-            currentImageName = iconState.systemImageName
+            currentImageName = iconState.imageName
         }
     }
 

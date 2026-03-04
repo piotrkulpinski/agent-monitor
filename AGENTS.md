@@ -41,10 +41,10 @@ make build && make dmg
 - `AgentMonitor/Protocols/AgentDetector.swift` — protocol: agentType + detect() async -> [AgentInstance]
 - `AgentMonitor/Services/AgentMonitorService.swift` — ObservableObject, @Published agents, startMonitoring/stopMonitoring, 3s polling loop
 ### Menu Bar Icon Management (T3)
-- `AgentMonitor/Models/MenuBarIconState.swift` — enum: .inactive (circle.dashed), .idle (circle.fill), .active (circle.fill + animation)
+- `AgentMonitor/Models/MenuBarIconState.swift` — enum: .inactive, .idle, .active with `imageName` property returning asset catalog names
 - `AgentMonitor/UI/MenuBarManager.swift` — @MainActor ObservableObject, update(from:) computes state from agents, Timer-based 0.5s animation for active state
-- SF Symbols used as template images (automatic dark/light mode in MenuBarExtra context)
-- Active state: alternates between circle.fill and circle.dotted every 0.5s
+- Custom SVG assets in Assets.xcassets (template images, automatic dark/light mode)
+- Active state: alternates between MenuBarActive and MenuBarIdle every 0.5s
 - `ClaudeCodeDetector` — T4
 - `OpenCodeDetector` — T5
 - `ActivityMonitor` — T6
@@ -53,6 +53,17 @@ make build && make dmg
 - `FocusTerminalService` — T9
 - `NotificationService` — T10
 - Onboarding flow — T11
+
+### App Icon + Menu Bar Assets (T12)
+- `AgentMonitor/Assets.xcassets/AppIcon.appiconset/` — SVG-based app icon (dark background, CPU chip, green activity dot)
+- `AgentMonitor/Assets.xcassets/MenuBarInactive.imageset/` — CPU outline icon (no agents)
+- `AgentMonitor/Assets.xcassets/MenuBarIdle.imageset/` — CPU with filled center (agents idle)
+- `AgentMonitor/Assets.xcassets/MenuBarActive.imageset/` — CPU with filled center + activity dot (agent working)
+- All menu bar icons: template images (`template-rendering-intent: template` in Contents.json), macOS handles dark/light
+- `MenuBarIconState.imageName` replaces `systemImageName` — returns asset catalog names
+- `MenuBarIconState.alternateImageName` replaces `alternateSystemImageName`
+- `AgentMonitorApp.swift`: `MenuBarExtra(image:)` instead of `systemImage:` for custom asset support
+- XcodeGen auto-detects `.xcassets` in sources path and adds PBXResourcesBuildPhase
 
 ### Process Tree Resolver (T7)
 - `AgentMonitor/Core/ProcessTreeResolver.swift` — walks PPID chain from agent PID to terminal app

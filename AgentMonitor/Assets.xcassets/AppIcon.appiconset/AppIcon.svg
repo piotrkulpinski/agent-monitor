@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- macOS rounded rect background -->
+  <rect width="1024" height="1024" rx="230" fill="#1C1C1E"/>
+  <!-- CPU chip icon centered -->
+  <rect x="262" y="262" width="500" height="500" rx="80" fill="none" stroke="white" stroke-width="50"/>
+  <rect x="362" y="362" width="300" height="300" rx="40" fill="white"/>
+  <!-- Pins top -->
+  <line x1="362" y1="162" x2="362" y2="262" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="512" y1="162" x2="512" y2="262" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="662" y1="162" x2="662" y2="262" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <!-- Pins bottom -->
+  <line x1="362" y1="762" x2="362" y2="862" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="512" y1="762" x2="512" y2="862" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="662" y1="762" x2="662" y2="862" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <!-- Pins left -->
+  <line x1="162" y1="362" x2="262" y2="362" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="162" y1="512" x2="262" y2="512" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="162" y1="662" x2="262" y2="662" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <!-- Pins right -->
+  <line x1="762" y1="362" x2="862" y2="362" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="762" y1="512" x2="862" y2="512" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <line x1="762" y1="662" x2="862" y2="662" stroke="white" stroke-width="50" stroke-linecap="round"/>
+  <!-- Activity dot -->
+  <circle cx="820" cy="204" r="80" fill="#30D158"/>
+</svg>

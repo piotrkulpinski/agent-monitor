@@ -9,7 +9,7 @@ struct AgentMonitorApp: App {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some Scene {
-        MenuBarExtra("AgentMonitor", systemImage: menuBarManager.currentImageName) {
+        MenuBarExtra("AgentMonitor", image: menuBarManager.currentImageName) {
             if !hasCompletedOnboarding {
                 OnboardingView()
             } else {
