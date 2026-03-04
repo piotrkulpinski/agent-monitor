@@ -40,6 +40,11 @@ make build && make dmg
 - `AgentMonitor/Models/ActivityState.swift` — enum: .working, .idle, .unknown
 - `AgentMonitor/Protocols/AgentDetector.swift` — protocol: agentType + detect() async -> [AgentInstance]
 - `AgentMonitor/Services/AgentMonitorService.swift` — ObservableObject, @Published agents, startMonitoring/stopMonitoring, 3s polling loop
+### Menu Bar Icon Management (T3)
+- `AgentMonitor/Models/MenuBarIconState.swift` — enum: .inactive (circle.dashed), .idle (circle.fill), .active (circle.fill + animation)
+- `AgentMonitor/UI/MenuBarManager.swift` — @MainActor ObservableObject, update(from:) computes state from agents, Timer-based 0.5s animation for active state
+- SF Symbols used as template images (automatic dark/light mode in MenuBarExtra context)
+- Active state: alternates between circle.fill and circle.dotted every 0.5s
 - `ClaudeCodeDetector` — T4
 - `OpenCodeDetector` — T5
 - `ActivityMonitor` — T6
