@@ -12,14 +12,15 @@ struct ClaudeCodeDetector: AgentDetector {
             guard isClaudeProcess(pid) else { continue }
             guard let cwd = getWorkingDirectory(pid) else { continue }
             let startTime = getProcessStartTime(pid) ?? Date()
-            let sessionTitle = getSessionTitle(for: cwd)
+            let sessionData = loadSessionData(for: cwd)
 
             instances.append(
                 AgentInstance(
                     agentType: .claudeCode,
                     pid: pid,
                     workingDirectory: cwd,
-                    sessionTitle: sessionTitle,
+                    modelName: sessionData?.modelName,
+                    sessionTitle: sessionData?.sessionTitle,
                     sessionStartTime: startTime
                 )
             )
@@ -27,6 +28,8 @@ struct ClaudeCodeDetector: AgentDetector {
 
         return instances
     }
+
+    // MARK: - Process detection
 
     private func getAllPIDs() -> [pid_t] {
         let count = proc_listallpids(nil, 0)
@@ -75,46 +78,108 @@ struct ClaudeCodeDetector: AgentDetector {
         let microseconds = TimeInterval(bsdInfo.pbi_start_tvusec) / 1_000_000
         return Date(timeIntervalSince1970: seconds + microseconds)
     }
-}
 
-    /// Reads the session title from ~/.claude/usage-data/session-meta/ for the most recent
-    /// session in the given working directory. Returns nil if not found or no summary available.
-    private func getSessionTitle(for cwd: String) -> String? {
+    // MARK: - Session data
+
+    private struct SessionData {
+        let modelName: String?
+        let sessionTitle: String?
+    }
+
+    /// Scans ~/.claude/projects/{cwd-as-dir}/*.jsonl files to find the most recent session
+    /// that has actual assistant messages (skipping empty stub files). Returns model name
+    /// and session title (from session-meta summary if available, else first user message).
+    private func loadSessionData(for cwd: String) -> SessionData? {
         // Claude Code stores projects as dirs named by replacing '/' with '-' in the path.
         // e.g. /Users/foo/Sites/bar -> -Users-foo-Sites-bar
         let projectDirName = cwd.replacingOccurrences(of: "/", with: "-")
         let projectDir = NSHomeDirectory() + "/.claude/projects/" + projectDirName
         let sessionMetaDir = NSHomeDirectory() + "/.claude/usage-data/session-meta"
 
-        guard FileManager.default.fileExists(atPath: projectDir) else { return nil }
-
-        // Find the most recently modified JSONL in the project dir (= most recent session).
         let fm = FileManager.default
-        guard let files = try? fm.contentsOfDirectory(atPath: projectDir) else { return nil }
-        let jsonlFiles = files.filter { $0.hasSuffix(".jsonl") && !$0.contains("/") }
-        guard !jsonlFiles.isEmpty else { return nil }
+        guard fm.fileExists(atPath: projectDir),
+              let files = try? fm.contentsOfDirectory(atPath: projectDir) else { return nil }
 
-        // Pick the most recently modified JSONL.
-        let mostRecent = jsonlFiles
+        // Collect all top-level .jsonl files sorted by modification date, newest first.
+        let jsonlFiles = files
+            .filter { $0.hasSuffix(".jsonl") }
             .compactMap { name -> (String, Date)? in
                 let path = projectDir + "/" + name
                 guard let attrs = try? fm.attributesOfItem(atPath: path),
                       let mod = attrs[.modificationDate] as? Date else { return nil }
                 return (name, mod)
             }
-            .max(by: { $0.1 < $1.1 })
+            .sorted { $0.1 > $1.1 }
             .map { $0.0 }
 
-        guard let jsonlName = mostRecent else { return nil }
-        let sessionUUID = String(jsonlName.dropLast(6)) // strip .jsonl
+        // Scan files newest-first; skip stubs (no assistant messages).
+        for jsonlName in jsonlFiles {
+            let path = projectDir + "/" + jsonlName
+            guard let content = try? String(contentsOfFile: path, encoding: .utf8) else { continue }
+            let lines = content.components(separatedBy: "\n")
 
-        // Try session-meta first (has AI-generated summary).
-        let metaPath = sessionMetaDir + "/" + sessionUUID + ".json"
-        if let data = try? Data(contentsOf: URL(fileURLWithPath: metaPath)),
-           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let summary = json["summary"] as? String, !summary.isEmpty {
-            return summary
+            var modelName: String?
+            var firstUserMessage: String?
+            var hasAssistantMessages = false
+
+            for line in lines {
+                let trimmed = line.trimmingCharacters(in: .whitespaces)
+                guard !trimmed.isEmpty,
+                      let data = trimmed.data(using: .utf8),
+                      let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                else { continue }
+
+                let type = obj["type"] as? String
+
+                // Extract model from first assistant message.
+                if type == "assistant", !hasAssistantMessages {
+                    hasAssistantMessages = true
+                    if let message = obj["message"] as? [String: Any],
+                       let model = message["model"] as? String, !model.isEmpty {
+                        modelName = model
+                    }
+                } else if type == "assistant" {
+                    hasAssistantMessages = true
+                }
+
+                // Extract first real user message (skip meta/system content).
+                if type == "user", firstUserMessage == nil {
+                    if let message = obj["message"] as? [String: Any] {
+                        let content = message["content"]
+                        if let text = content as? String,
+                           !text.isEmpty, !text.hasPrefix("<") {
+                            firstUserMessage = text
+                        } else if let parts = content as? [[String: Any]] {
+                            for part in parts {
+                                if part["type"] as? String == "text",
+                                   let text = part["text"] as? String,
+                                   !text.isEmpty, !text.hasPrefix("<") {
+                                    firstUserMessage = text
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Skip stubs with no assistant messages.
+            guard hasAssistantMessages else { continue }
+
+            // Try session-meta for an AI-generated summary (better than first prompt).
+            let sessionUUID = String(jsonlName.dropLast(6)) // strip .jsonl
+            let metaPath = sessionMetaDir + "/" + sessionUUID + ".json"
+            var sessionTitle: String? = firstUserMessage
+
+            if let metaData = try? Data(contentsOf: URL(fileURLWithPath: metaPath)),
+               let metaJson = try? JSONSerialization.jsonObject(with: metaData) as? [String: Any],
+               let summary = metaJson["summary"] as? String, !summary.isEmpty {
+                sessionTitle = summary
+            }
+
+            return SessionData(modelName: modelName, sessionTitle: sessionTitle)
         }
 
         return nil
     }
+}
