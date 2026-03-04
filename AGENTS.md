@@ -104,6 +104,18 @@ make build && make dmg
 - Fallback focus path: `NSRunningApplication.activate(options: .activateIgnoringOtherApps)`
 - Imports: `ApplicationServices` for AX APIs and `AppKit` for `NSRunningApplication`
 
+### Notification Service (T10)
+- `AgentMonitor/Notifications/NotificationService.swift` — sends macOS local notifications on `.working` → `.idle` transitions
+- `UNUserNotificationCenter` delegate set in `init()` for `willPresent` to work (shows banner while app is active)
+- Debounce: tracks `workingStartTime` per PID; requires >= 5s of working before notifying
+- Throttle: tracks `lastNotificationTime` per PID; max one notification per 30s per agent
+- Only fires on `.working` → `.idle` (not `.unknown` → `.idle`)
+- Notification title: "{AgentType.displayName} finished", body: "{projectName} is now idle"
+- `AgentType.displayName` added: "Claude Code" / "Open Code"
+- `agentStartedWorking` called from `AgentMonitorService.refresh()` on first `.working` detection
+- `onAgentCompleted` wired in `AgentMonitorApp.onAppear`; `requestPermission()` called on startup
+- `nonisolated` required on `UNUserNotificationCenterDelegate` methods (called off main actor)
+
 ## Build & Run
 
 ```bash

@@ -38,7 +38,23 @@ final class AgentMonitorService: ObservableObject {
             let detected = await detector.detect()
             allAgents.append(contentsOf: detected)
         }
+
+        // Snapshot previous states before update
+        let previousStates: [pid_t: ActivityState] = Dictionary(
+            agents.map { ($0.pid, $0.activityState) },
+            uniquingKeysWith: { first, _ in first }
+        )
+
         activityMonitor.updateActivityStates(for: &allAgents)
+
+        // Detect working-start transitions for debounce tracking
+        for agent in allAgents where agent.activityState == .working {
+            let prev = previousStates[agent.pid]
+            if prev == .idle || prev == .unknown || prev == nil {
+                NotificationService.shared.agentStartedWorking(agent)
+            }
+        }
+
         agents = allAgents
     }
 }

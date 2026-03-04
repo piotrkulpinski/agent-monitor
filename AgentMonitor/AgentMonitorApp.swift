@@ -12,7 +12,13 @@ struct AgentMonitorApp: App {
             AgentListView()
                 .environmentObject(monitorService)
                 .environmentObject(menuBarManager)
-                .onAppear { monitorService.startMonitoring() }
+                .onAppear {
+                    monitorService.startMonitoring()
+                    monitorService.onAgentCompleted = { agent in
+                        NotificationService.shared.agentCompletedWork(agent)
+                    }
+                    NotificationService.shared.requestPermission()
+                }
         }
         .menuBarExtraStyle(.window)
         .onChange(of: monitorService.agents) { _, agents in

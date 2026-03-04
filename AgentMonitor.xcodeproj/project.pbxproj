@@ -27,11 +27,13 @@
 		D46FE4CFDA20AD4FB4BBB899 /* FocusTerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77959BF9A0D2AC9F52355C /* FocusTerminalService.swift */; };
 		D50E05572014A7B08791FD68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573154EA4D7BF63E0DFAEE9E /* ContentView.swift */; };
 		E67C43DFDC55F2519246EDE2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7743729B2E965F0DC76EEBF3 /* EmptyStateView.swift */; };
+		FDF9972DAEAC1F3B85CFB825 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432074C1661CC4AD2DBF1B89 /* NotificationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		15D32272A9896E1270BE969D /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
 		3A1D3A9A65EA64AD96908E72 /* DurationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationLabel.swift; sourceTree = "<group>"; };
+		432074C1661CC4AD2DBF1B89 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		465D2735056FDA70AD4D18EC /* AgentDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentDetector.swift; sourceTree = "<group>"; };
 		4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMonitorApp.swift; sourceTree = "<group>"; };
 		573154EA4D7BF63E0DFAEE9E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,14 @@
 			path = Monitoring;
 			sourceTree = "<group>";
 		};
+		C635D36469BDFE4A86F25918 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				432074C1661CC4AD2DBF1B89 /* NotificationService.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		D1971746D69732C83AC168F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 				DE419477445676E17B0AFACF /* Detectors */,
 				D1971746D69732C83AC168F0 /* Models */,
 				C0611C4B3479069EC3E386CF /* Monitoring */,
+				C635D36469BDFE4A86F25918 /* Notifications */,
 				7CF82C221CE60979A5A15282 /* Protocols */,
 				DF503FDC0AE8C3C942C919A7 /* Services */,
 				F82A5C5ABAB51B6B195FCEE1 /* Terminal */,
@@ -248,6 +259,7 @@
 				D46FE4CFDA20AD4FB4BBB899 /* FocusTerminalService.swift in Sources */,
 				461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */,
 				7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */,
+				FDF9972DAEAC1F3B85CFB825 /* NotificationService.swift in Sources */,
 				50DB550421AB0FE3EBBA35B9 /* OpenCodeDetector.swift in Sources */,
 				CED50782AE04844DAB0D9BFC /* ProcessTreeInfo.swift in Sources */,
 				7C93D6C8A3A2E2D28CA771E2 /* ProcessTreeResolver.swift in Sources */,
