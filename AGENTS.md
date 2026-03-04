@@ -116,6 +116,17 @@ make build && make dmg
 - `onAgentCompleted` wired in `AgentMonitorApp.onAppear`; `requestPermission()` called on startup
 - `nonisolated` required on `UNUserNotificationCenterDelegate` methods (called off main actor)
 
+### Onboarding + Utility Menu (T11)
+- `AgentMonitor/Onboarding/OnboardingView.swift` — first-launch screen shown when `hasCompletedOnboarding == false`
+- `@AppStorage("hasCompletedOnboarding")` persists across launches via UserDefaults
+- Onboarding requests Notifications permission via `NotificationService.shared.requestPermission()` on "Get Started"
+- `AgentMonitorApp` conditionally shows `OnboardingView` or `AgentListView` based on `hasCompletedOnboarding`
+- `AgentListView` footer: "Launch at Login" checkbox (SMAppService) + "Quit" button
+- `SMAppService.mainApp.register()/unregister()` for launch-at-login (macOS 13+)
+- `SMAppService.mainApp.status == .enabled` to read current state
+- `NSApplication.shared.terminate(nil)` for Quit button
+- `import ServiceManagement` added to `AgentListView.swift`
+
 ## Build & Run
 
 ```bash

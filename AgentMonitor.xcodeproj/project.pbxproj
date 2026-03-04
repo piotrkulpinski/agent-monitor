@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E263671EB730954F499D481 /* AgentMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB38D983D931D6521EDE69C /* AgentMonitorApp.swift */; };
 		2E30C5BC724DD911FA03734F /* AgentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F2E336E4D8AB08AB9B3DBD /* AgentListView.swift */; };
+		33BD468694632D163FA45302 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CA3C1E30F71AA419FAA4 /* OnboardingView.swift */; };
 		417B67C81977FD458080922C /* ActivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E17178CB03740E7B225E8EA /* ActivityMonitor.swift */; };
 		461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC696F8D3A070C57BF04D858 /* MenuBarIconState.swift */; };
 		4D9AB59BF9E1E07E7F295CF9 /* StatusDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE428A2077C8F56A4ACE9B0 /* StatusDot.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		15D32272A9896E1270BE969D /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+		38C1CA3C1E30F71AA419FAA4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		3A1D3A9A65EA64AD96908E72 /* DurationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationLabel.swift; sourceTree = "<group>"; };
 		432074C1661CC4AD2DBF1B89 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		465D2735056FDA70AD4D18EC /* AgentDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentDetector.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 				15D32272A9896E1270BE969D /* MenuBarManager.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		4FD39C401C1AC693228D89EC /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				38C1CA3C1E30F71AA419FAA4 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		67F463DE54C89214943D770F /* Products */ = {
@@ -148,6 +158,7 @@
 				D1971746D69732C83AC168F0 /* Models */,
 				C0611C4B3479069EC3E386CF /* Monitoring */,
 				C635D36469BDFE4A86F25918 /* Notifications */,
+				4FD39C401C1AC693228D89EC /* Onboarding */,
 				7CF82C221CE60979A5A15282 /* Protocols */,
 				DF503FDC0AE8C3C942C919A7 /* Services */,
 				F82A5C5ABAB51B6B195FCEE1 /* Terminal */,
@@ -260,6 +271,7 @@
 				461F69E301819475017FD073 /* MenuBarIconState.swift in Sources */,
 				7E8B4F32FF0DD674A60DA562 /* MenuBarManager.swift in Sources */,
 				FDF9972DAEAC1F3B85CFB825 /* NotificationService.swift in Sources */,
+				33BD468694632D163FA45302 /* OnboardingView.swift in Sources */,
 				50DB550421AB0FE3EBBA35B9 /* OpenCodeDetector.swift in Sources */,
 				CED50782AE04844DAB0D9BFC /* ProcessTreeInfo.swift in Sources */,
 				7C93D6C8A3A2E2D28CA771E2 /* ProcessTreeResolver.swift in Sources */,

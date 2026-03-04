@@ -6,19 +6,24 @@ struct AgentMonitorApp: App {
     @StateObject private var monitorService = AgentMonitorService(detectors: [
         ClaudeCodeDetector(), OpenCodeDetector()
     ])
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some Scene {
         MenuBarExtra("AgentMonitor", systemImage: menuBarManager.currentImageName) {
-            AgentListView()
-                .environmentObject(monitorService)
-                .environmentObject(menuBarManager)
-                .onAppear {
-                    monitorService.startMonitoring()
-                    monitorService.onAgentCompleted = { agent in
-                        NotificationService.shared.agentCompletedWork(agent)
+            if !hasCompletedOnboarding {
+                OnboardingView()
+            } else {
+                AgentListView()
+                    .environmentObject(monitorService)
+                    .environmentObject(menuBarManager)
+                    .onAppear {
+                        monitorService.startMonitoring()
+                        monitorService.onAgentCompleted = { agent in
+                            NotificationService.shared.agentCompletedWork(agent)
+                        }
+                        NotificationService.shared.requestPermission()
                     }
-                    NotificationService.shared.requestPermission()
-                }
+            }
         }
         .menuBarExtraStyle(.window)
         .onChange(of: monitorService.agents) { _, agents in
