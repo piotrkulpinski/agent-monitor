@@ -51,10 +51,15 @@ struct OpenCodeDetector: AgentDetector {
 
     private func isOpenCodeProcess(_ pid: pid_t) -> Bool {
         var name = [CChar](repeating: 0, count: Int(MAXCOMLEN) + 1)
-        let result = proc_name(pid, &name, UInt32(name.count))
-        guard result > 0 else { return false }
+        let nameResult = proc_name(pid, &name, UInt32(name.count))
+        guard nameResult > 0, String(cString: name) == ".opencode" else { return false }
 
-        return String(cString: name) == ".opencode"
+        // Real Open Code processes are Node.js binaries that rename themselves via process.title.
+        // Their proc_pidpath returns empty. Unrelated processes that coincidentally show '.opencode'
+        // as proc_name (e.g. Wispr Flow, TablePlus Sparkle) have a non-empty pidpath — exclude them.
+        var pathBuf = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+        let pathResult = proc_pidpath(pid, &pathBuf, UInt32(pathBuf.count))
+        return pathResult <= 0 || String(cString: pathBuf).isEmpty
     }
 
     private func getWorkingDirectory(_ pid: pid_t) -> String? {
