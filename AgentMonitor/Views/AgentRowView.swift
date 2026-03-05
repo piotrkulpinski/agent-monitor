@@ -15,7 +15,7 @@ struct AgentRowView: View {
                         .font(.system(size: 13, weight: .medium))
                         .lineLimit(1)
                     Spacer()
-                    DurationLabel(startTime: agent.sessionStartTime)
+                    DurationLabel(date: agent.lastActiveTime)
                 }
 
                 Text(agent.shortWorkingDirectory)
